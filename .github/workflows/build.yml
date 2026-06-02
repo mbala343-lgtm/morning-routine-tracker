@@ -13,17 +13,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
+
+      - name: Install Project Dependencies
+        run: npm install
 
       - name: Setup Expo / EAS
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Install Project Dependencies
-        run: |
-          npm install
+          patch-watchers: true
 
       - name: Build Android Preview APK
-        run: |
-          npx eas-cli build -p android --profile preview --non-interactive
+        run: npx eas-cli build -p android --profile preview --non-interactive
